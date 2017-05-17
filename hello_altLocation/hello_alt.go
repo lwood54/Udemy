@@ -7,5 +7,8 @@ import (
 )
 
 func main() {
-	fmt.Println(stringutil.Reverse("Hello from an alternate location."))
+	original := "Hello from an alternate location."
+	reversedMessage := stringutil.Reverse(original)
+	fmt.Println("Original Message: ", original)
+	fmt.Println("Reversed message: ", reversedMessage)
 }
