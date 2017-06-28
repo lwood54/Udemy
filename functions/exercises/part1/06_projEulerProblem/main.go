@@ -15,8 +15,11 @@ import (
 )
 
 func main() {
-	// fmt.Println(sumOfPrimes(10)) // should be 17 (2 + 3 + 5 + 7)
-	fmt.Println(sumOfPrimes(2000000))
+	fmt.Println(sumOfPrimes(10))      // should be 17 (2 + 3 + 5 + 7)
+	fmt.Println(sumOfPrimes(1))       // 0
+	fmt.Println(sumOfPrimes(2))       // 2
+	fmt.Println(sumOfPrimes(-54))     // 0
+	fmt.Println(sumOfPrimes(2000000)) // 142913828922
 }
 
 func sumOfPrimes(upperLimit int) int {
@@ -24,6 +27,9 @@ func sumOfPrimes(upperLimit int) int {
 	if upperLimit > 2 {
 		total = 2
 	} else {
+		if upperLimit <= 1 {
+			return 0
+		}
 		return 2
 	}
 	for i := 3; i < upperLimit; i += 2 {
