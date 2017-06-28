@@ -6,6 +6,8 @@ func main() {
 	visit([]int{1, 2, 3, 4}, func(n int) {
 		fmt.Println(n)
 	})
+
+	fmt.Println("It worked.")
 }
 
 // a func called visit() has to parameters

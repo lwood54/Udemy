@@ -9,15 +9,40 @@
 
 package main
 
+import (
+	"fmt"
+	"math"
+)
+
 func main() {
-	sumOfPrimes(5)
+	// fmt.Println(sumOfPrimes(10)) // should be 17 (2 + 3 + 5 + 7)
+	fmt.Println(sumOfPrimes(2000000))
 }
 
 func sumOfPrimes(upperLimit int) int {
-	for i := 1; i < upperLimit; i++ {
-		if 5 < 4 {
-			return 5
+	var total int
+	if upperLimit > 2 {
+		total = 2
+	} else {
+		return 2
+	}
+	for i := 3; i < upperLimit; i += 2 {
+		if isPrime(i) {
+			total += i
 		}
 	}
-	return 8
+	return total
+}
+
+func isPrime(num int) bool {
+	numSqrt := int(math.Sqrt(float64(num)))
+	if num%2 != 0 {
+		for i := 3; i <= numSqrt; i += 2 {
+			if num%i == 0 {
+				return false
+			}
+		}
+		return true
+	}
+	return false
 }
