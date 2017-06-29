@@ -12,6 +12,7 @@ func main() {
 	for i := 65; i <= 122; i++ {
 		x[i-65] = fmt.Sprintln(i, ": ", string(i))
 	}
+	x[42] = "another letter"
 	fmt.Println(x)
 	fmt.Println(len(x))
 	fmt.Println(x[42])
