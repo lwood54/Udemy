@@ -12,27 +12,7 @@ import (
 	"net/http"
 )
 
-// need to make structs in order to read the JSON data, haven't learned structs yet
-
-// Wind to read wind JSON
-type Wind struct {
-	Speed string `json:"speed"` // finish this later!!!
-}
-
 func main() {
-	// get the book moby dick
-	// this file works with his code
-	// file used by instructor: http://www.gutenberg.org/files/2701/old/moby10b.txt
-
-	// not sure why this link wouldn't also work...it throws an out of index error message
-	// alternate file: http://www.gutenberg.org/files/2701/2701-0.txt
-
-	// res, err := http.Get("http://samples.openweathermap.org/data/2.5/weather?zip=76177,us&appid=31fca86b431449f34e2decc907601056")
-	// if err != nil {
-	// 	log.Fatalln("This is a fatal error: ", err)
-	// }
-	// body := res.Body
-
 	res, getErr := http.Get("http://api.openweathermap.org/data/2.5/weather?zip=76177,us&appid=31fca86b431449f34e2decc907601056")
 	if getErr != nil {
 		log.Fatalln("http.Get error: ", getErr)
@@ -43,27 +23,23 @@ func main() {
 		log.Fatalln("Read Error: ", readErr)
 	}
 
-	byt := []byte(body)
+	// unmarshaling and using comma, ok idiom to do type assertion
+	// to access data
+	byt := []byte(body) // conversion to slice of bytes
 	var dat map[string]interface{}
 	if err := json.Unmarshal(byt, &dat); err != nil {
 		panic(err)
 	}
 
-	// fmt.Println(dat)
 	fmt.Printf("Wind data type: %T \n", dat["wind"])
 	fmt.Println(dat["wind"])
 	windData := dat["wind"]
-	fmt.Printf("windData type: %T", windData)
-	// works well to scan a page and print each line!
-	// scanner := bufio.NewScanner(res.Body)
-	// defer res.Body.Close()
-	// scanner.Split(bufio.ScanLines)
-	// i := 0
-	// for scanner.Scan() {
-	// 	if i < 2000 { // stops after the first 2,000 lines
-	// 		fmt.Println(scanner.Text())
-	// 		i++
-	// 	}
-	// }
-
+	fmt.Printf("windData type: %T \n", windData)
+	fmt.Println(dat["wind"])
+	wind, ok := dat["wind"].(map[string]interface{}) // used type assertion
+	if ok {                                          // after type assertion,
+		fmt.Println("wind speed: ", wind["speed"]) // check to make sure the type matches
+		fmt.Println("degrees: ", wind["deg"])      // using the comma, ok idiom
+		fmt.Println("gusts: ", wind["gust"])
+	}
 }
